@@ -25,4 +25,4 @@
 - Provide your own proxy server URL in `ChatGPTAPI.swift`
 
 ## Video Tutorial
-Check the full video tutorial at [YouTube](https://www.youtube.com/@XCA)
+Check the full video tutorial at [YouTube](https://youtu.be/-HJeBV70zIE)
