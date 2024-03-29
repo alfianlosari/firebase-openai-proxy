@@ -3,7 +3,7 @@
 # gitignore contributors: remember to update Global/Xcode.gitignore, 
 .DS_Store
 Objective-C.gitignore & Swift.gitignore
-
+GoogleService-Info.plist
 ## User settings
 xcuserdata/
 
