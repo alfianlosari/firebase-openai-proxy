@@ -12,18 +12,10 @@ class ChatGPTAPI: @unchecked Sendable {
     private let systemMessage: Message
     private let temperature: Double
     private let model: String
-    
-    private let apiKey: String
+    private var tokenProvider: () async -> String?
     private var historyList = [Message]()
     private let urlSession = URLSession.shared
-    private var urlRequest: URLRequest {
-        let url = URL(string: "https://api.openai.com/v1/chat/completions")!
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = "POST"
-        headers.forEach {  urlRequest.setValue($1, forHTTPHeaderField: $0) }
-        return urlRequest
-    }
-    
+
     let dateFormatter: DateFormatter = {
         let df = DateFormatter()
         df.dateFormat = "YYYY-MM-dd"
@@ -35,20 +27,23 @@ class ChatGPTAPI: @unchecked Sendable {
         jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
         return jsonDecoder
     }()
-    
-    private var headers: [String: String] {
-        [
-            "Content-Type": "application/json",
-            "Authorization": "Bearer \(apiKey)"
-        ]
-    }
-    
 
-    init(apiKey: String, model: String = "gpt-3.5-turbo", systemPrompt: String = "You are a helpful assistant", temperature: Double = 0.5) {
-        self.apiKey = apiKey
+    init(model: String = "gpt-4", systemPrompt: String = "You are a helpful assistant", temperature: Double = 0.5, tokenProvider: @escaping () async -> String?) {
         self.model = model
         self.systemMessage = .init(role: "system", content: systemPrompt)
         self.temperature = temperature
+        self.tokenProvider = tokenProvider
+    }
+    
+    private func urlRequest(token: String) -> URLRequest {
+        let url = URL(string: "https://chat-quk3wel5vq-uc.a.run.app/chat")!
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "POST"
+        [
+            "Content-Type": "application/json",
+            "Authorization": "Bearer \(token)"
+        ].forEach {  urlRequest.setValue($1, forHTTPHeaderField: $0) }
+        return urlRequest
     }
     
     private func generateMessages(from text: String) -> [Message] {
@@ -73,7 +68,11 @@ class ChatGPTAPI: @unchecked Sendable {
     }
     
     func sendMessageStream(text: String) async throws -> AsyncThrowingStream<String, Error> {
-        var urlRequest = self.urlRequest
+        guard let token = await self.tokenProvider() else {
+            throw "Token is unavailable"
+        }
+        
+        var urlRequest = self.urlRequest(token: token)
         urlRequest.httpBody = try jsonBody(text: text)
         
         let (result, response) = try await urlSession.bytes(for: urlRequest)
@@ -96,7 +95,7 @@ class ChatGPTAPI: @unchecked Sendable {
             
             throw "Bad Response: \(httpResponse.statusCode), \(errorText)"
         }
-        
+       
         var responseText = ""
         let streams: AsyncThrowingStream<String, Error> = AsyncThrowingStream { continuation in
             Task {
@@ -127,10 +126,15 @@ class ChatGPTAPI: @unchecked Sendable {
             self.appendToHistoryList(userText: text, responseText: responseText)
             return nil
         }
+
     }
 
     func sendMessage(_ text: String) async throws -> String {
-        var urlRequest = self.urlRequest
+        guard let token = await self.tokenProvider() else {
+            throw "Token is unavailable"
+        }
+        
+        var urlRequest = self.urlRequest(token: token)
         urlRequest.httpBody = try jsonBody(text: text, stream: false)
         
         let (data, response) = try await urlSession.data(for: urlRequest)

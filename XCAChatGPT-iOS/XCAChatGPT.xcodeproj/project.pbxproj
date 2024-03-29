@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B5BD6752BB6628700BC846D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8B5BD6742BB6628700BC846D /* GoogleService-Info.plist */; };
+		8B5BD6772BB662F900BC846D /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5BD6762BB662F900BC846D /* HomeView.swift */; };
 		8B604B0D2BB2E2A600678AFF /* AuthenticationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B604B0C2BB2E2A600678AFF /* AuthenticationType.swift */; };
 		8B604B122BB2E33500678AFF /* LogoTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B604B0E2BB2E33500678AFF /* LogoTitleView.swift */; };
 		8B604B132BB2E33500678AFF /* AuthenticationFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B604B0F2BB2E33500678AFF /* AuthenticationFormView.swift */; };
@@ -37,6 +39,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8B5BD6742BB6628700BC846D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8B5BD6762BB662F900BC846D /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		8B604B0C2BB2E2A600678AFF /* AuthenticationType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationType.swift; sourceTree = "<group>"; };
 		8B604B0E2BB2E33500678AFF /* LogoTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoTitleView.swift; sourceTree = "<group>"; };
 		8B604B0F2BB2E33500678AFF /* AuthenticationFormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationFormView.swift; sourceTree = "<group>"; };
@@ -131,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				8B604B1F2BB2F10100678AFF /* Info.plist */,
+				8B5BD6742BB6628700BC846D /* GoogleService-Info.plist */,
 				8B604B0B2BB2E29D00678AFF /* Auth */,
 				8B91C003298AD09E0079AF26 /* XCAChatGPTApp.swift */,
 				8B612E2229D68CC9008DF5AF /* TextView.swift */,
@@ -138,6 +143,7 @@
 				8B612E2429D68CC9008DF5AF /* TokenizerViewModel.swift */,
 				8B91C007298AD09F0079AF26 /* Assets.xcassets */,
 				8B91C009298AD09F0079AF26 /* Preview Content */,
+				8B5BD6762BB662F900BC846D /* HomeView.swift */,
 			);
 			path = XCAChatGPT;
 			sourceTree = "<group>";
@@ -222,6 +228,7 @@
 			files = (
 				8B91C00B298AD09F0079AF26 /* Preview Assets.xcassets in Resources */,
 				8B91C008298AD09F0079AF26 /* Assets.xcassets in Resources */,
+				8B5BD6752BB6628700BC846D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,6 +244,7 @@
 				8B91C006298AD09E0079AF26 /* ContentView.swift in Sources */,
 				8B604B122BB2E33500678AFF /* LogoTitleView.swift in Sources */,
 				8BC0F8DC29F1587600D6B492 /* ResponseParsingTask.swift in Sources */,
+				8B5BD6772BB662F900BC846D /* HomeView.swift in Sources */,
 				8B612E2629D68CC9008DF5AF /* TokenizerView.swift in Sources */,
 				8B612E2729D68CC9008DF5AF /* TokenizerViewModel.swift in Sources */,
 				8B604B152BB2E33500678AFF /* SplashScreenView.swift in Sources */,
